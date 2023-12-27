@@ -14,7 +14,13 @@ class JudulController extends Controller
      */
     public function index()
     {
-        //
+        if(auth()->user()->role_id === 1)
+        {
+            $judul = Judul::where('mahasiswa_id', auth()->user()->mahasiswa->id)->get();
+        } else {
+            $judul = Judul::all();
+        }
+        return view('judul.index', ['judul' => $judul]);
     }
 
     /**
@@ -70,7 +76,17 @@ class JudulController extends Controller
      */
     public function show(Judul $judul)
     {
-        //
+        $role = '';
+
+        if(auth()->user()->role_id === 1)
+        {
+            $role = 'mahasiswa';
+        } else if(auth()->user()->role_id === 3)
+        {
+            $role = 'kajur';
+        }
+
+        return view('judul.edit', ['judul' => $judul, 'role' => $role]);
     }
 
     /**
@@ -95,5 +111,23 @@ class JudulController extends Controller
     public function destroy(Judul $judul)
     {
         //
+    }
+
+    public function updateStatus(Request $request, Judul $judul)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return back()->withErrors($validator);
+        }
+
+        $validated = $validator->validate();
+
+        Judul::where('id', $judul->id)->update($validated);
+
+        return redirect('/judul');
     }
 }

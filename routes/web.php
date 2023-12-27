@@ -39,6 +39,7 @@ Route::middleware(['auth', 'checkrole:3'])->group(function () {
     Route::get('/kajur', [KajurController::class, 'index']);
     Route::get('/kajur/create', [KajurController::class, 'create']);
     Route::put('/kajur/{kajur}', [KajurController::class, 'update']);
+    Route::put('/judul/{judul}', [JudulController::class, 'updateStatus']);
 });
 
 Route::middleware(['auth', 'checkrole:4'])->group(function () {
@@ -51,4 +52,9 @@ Route::middleware(['auth', 'checkrole:5'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/user/create', [UserController::class, 'create']);
     Route::post('/user', [UserController::class, 'store']);
+});
+
+Route::middleware(['auth', 'checkrole:1,3'])->group(function () {
+    Route::get('/judul', [JudulController::class, 'index']);
+    Route::get('/judul/{judul}', [JudulController::class, 'show']);
 });

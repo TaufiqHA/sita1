@@ -11,6 +11,8 @@ class Judul extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['mahasiswa'];
+
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class);
