@@ -20,7 +20,9 @@ class DosenController extends Controller
             ]);
         }
 
-        return view('dosen.index');
+        $avatar = auth()->user()->avatar;
+
+        return view('dosen.index', ['title' => 'Dashboard', 'avatar' => $avatar]);
     }
 
     /**

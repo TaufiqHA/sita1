@@ -6,6 +6,12 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Illuminate\Validation\Rules\File;
+use App\Models\Mahasiswa;
+use App\Models\Dosen;
+use App\Models\Kajur;
+use App\Models\Sekjur;
+use App\Models\Admin;
 
 class UserController extends Controller
 {
@@ -23,7 +29,8 @@ class UserController extends Controller
     public function create()
     {
         $data = Role::all();
-        return view('user.add', ['role' => $data]);
+        $avatar = auth()->user()->avatar;
+        return view('user.add', ['role' => $data, 'title' => 'Tambah User', 'avatar' => $avatar]);
     }
 
     /**
@@ -47,15 +54,55 @@ class UserController extends Controller
 
         User::create($validated);
 
-        return back()->with([
-            'success' => 'Mahasiswa berhasil ditambahkan'
-        ]);
+        $latest = User::latest()->first();
+
+        if($latest->role_id === 1) {
+            Mahasiswa::create([
+                'user_id' => $latest->id
+            ]);
+
+            return back()->with([
+                'success' => 'Mahasiswa berhasil ditambahkan'
+            ]);
+        } else if($latest->role_id === 2) {
+            Dosen::create([
+                'user_id' => $latest->id
+            ]);
+
+            return back()->with([
+                'success' => 'Dosen berhasil ditambahkan'
+            ]);
+        } else  if($latest->role_id === 3) {
+            Kajur::create([
+                'user_id' => $latest->id
+            ]);
+
+            return back()->with([
+                'success' => 'Kajur berhasil ditambahkan'
+            ]);
+        } else if($latest->role_id === 4) {
+            Sekjur::create([
+                'user_id' => $latest->id
+            ]);
+
+            return back()->with([
+                'success' => 'Sekjur berhasil ditambahkan'
+            ]);
+        } else {
+            Admin::create([
+                'user_id' => $latest->id
+            ]);
+
+            return back()->with([
+                'success' => 'Admin berhasil ditambahkan'
+            ]);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         //
     }
@@ -63,17 +110,45 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        $avatar = $user->avatar;
+        $mahasiswa = $user;
+        return view('user.show', ['title' => 'Pengaturan Akun', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'email' => 'required',
+            'avatar' => [
+                'nullable',
+                File::types(['jpg', 'jpeg', 'png'])
+            ]
+            ]);
+
+        if($validator->fails())
+        {
+            return back()->withErrors($validator);
+        }
+
+        $validated = $validator->validate();
+
+        if($request->file('avatar'))
+        {
+            $validated['avatar'] = $request->file('avatar')->store('image');
+        }
+
+        User::where('id', $user->id)->update($validated);
+
+        return back()->with([
+            'success' => 'Berhasil Update Data'
+        ]);
+
     }
 
     /**
@@ -82,5 +157,23 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function updateTema(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'tema' => 'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json(['error' => 'Gagal memperbarui tema.'], 403);
+        }
+
+        $validated = $validator->validate();
+
+        User::where('id', auth()->user()->id)->update($validated);
+
+        return response()->json(['message' => 'Tema berhasil diperbarui.']);
     }
 }

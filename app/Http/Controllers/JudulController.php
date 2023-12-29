@@ -6,6 +6,7 @@ use App\Models\Judul;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Mahasiswa;
+use App\Models\Dosen;
 
 class JudulController extends Controller
 {
@@ -20,7 +21,12 @@ class JudulController extends Controller
         } else {
             $judul = Judul::all();
         }
-        return view('judul.index', ['judul' => $judul]);
+
+        $mahasiswa = Mahasiswa::all();
+
+        $avatar = auth()->user()->avatar;
+
+        return view('judul.index', ['judul' => $judul, 'title' => 'List Judul', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
     }
 
     /**
@@ -28,8 +34,16 @@ class JudulController extends Controller
      */
     public function create()
     {
-        $mahasiswa = auth()->user()->mahasiswa->id;
-        return view('judul.add', ['mahasiswa_id' => $mahasiswa]);
+        $mahasiswa = '';
+        if(auth()->user()->mahasiswa->nama)
+        {
+            $mahasiswa = auth()->user()->mahasiswa;
+        }
+        $avatar = auth()->user()->avatar;
+        $dosen = Dosen::all();
+        $judul = auth()->user()->mahasiswa->judul;
+        $jumlah = count($judul);
+        return view('judul.add', ['title' => 'Tugas Akhir', 'avatar' => $avatar, 'dosen' => $dosen, 'judul' => $judul, 'mahasiswa' => $mahasiswa, 'jumlah' => $jumlah]);
     }
 
     /**
@@ -50,6 +64,8 @@ class JudulController extends Controller
             'nama_dosen3' => 'required',
             'nama_dosen4' => 'required',
             'status' => 'required',
+            'dospem1' => 'required',
+            'dospem2' => 'required',
         ]);
 
         if($validator->fails())
@@ -86,7 +102,10 @@ class JudulController extends Controller
             $role = 'kajur';
         }
 
-        return view('judul.edit', ['judul' => $judul, 'role' => $role]);
+        $avatar = auth()->user()->avatar;
+        $dosen = Dosen::all();
+
+        return view('judul.show', ['judul' => $judul, 'role' => $role, 'title' => 'Detail Judul', 'avatar' => $avatar, 'dosen' => $dosen]);
     }
 
     /**
@@ -129,5 +148,10 @@ class JudulController extends Controller
         Judul::where('id', $judul->id)->update($validated);
 
         return redirect('/judul');
+    }
+
+    public function download(Judul $judul)
+    {
+        return response()->download('storage/' . $judul->bukti, 'bukti konsultasi');
     }
 }

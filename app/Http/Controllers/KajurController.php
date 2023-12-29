@@ -20,7 +20,9 @@ class KajurController extends Controller
             ]);
         }
 
-        return view('kajur.index');
+        $avatar = auth()->user()->avatar;
+
+        return view('kajur.index', ['title' => 'Dashboard', 'avatar' => $avatar]);
     }
 
     /**

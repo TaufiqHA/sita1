@@ -16,10 +16,10 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
 
-       if(in_array(auth()->user()->role_id, $roles))
-       {
-            return $next($request);
-       }
+        if(in_array(auth()->user()->role_id, $roles))
+        {
+                return $next($request);
+        }
 
         return redirect('/redirect');
     }

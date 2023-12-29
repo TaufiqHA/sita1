@@ -13,7 +13,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $avatar = auth()->user()->avatar;
+        return view('admin.index', ['title' => 'Dashboard', 'avatar' => $avatar]);
     }
 
     /**

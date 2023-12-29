@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('dosen_pa')->nullable();
             $table->string('nama')->nullable();
             $table->string('nim')->nullable();
+            $table->string('angkatan')->nullable();
             $table->string('sks')->nullable();
             $table->date('tanggal_ta')->nullable();
             $table->string('surah')->nullable();

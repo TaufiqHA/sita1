@@ -19,11 +19,15 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth', 'checkrole:1,2,3,4,5'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/redirect', [RedirectController::class, 'check']);
+    Route::get('/user/{user}/edit', [UserController::class, 'edit']);
+    Route::put('/user/{user}', [UserController::class, 'update']);
+    Route::get('/judul1/{judul}', [JudulController::class, 'download'])->name('download');
+    Route::post('/update-theme', [UserController::class, 'updateTema']);
 });
 
 Route::middleware(['auth', 'checkrole:1'])->group(function () {
     Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
-    Route::get('/mahasiswa/create', [MahasiswaController::class, 'create']);
+    Route::get('/mahasiswa/{mahasiswa}', [MahasiswaController::class, 'show']);
     Route::put('/mahasiswa/{mahasiswa}', [MahasiswaController::class, 'update']);
     Route::get('/judul/create', [JudulController::class, 'create']);
     Route::post('/judul', [JudulController::class, 'store']);
@@ -52,6 +56,7 @@ Route::middleware(['auth', 'checkrole:5'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/user/create', [UserController::class, 'create']);
     Route::post('/user', [UserController::class, 'store']);
+    Route::get('/mahasiswa/create', [MahasiswaController::class, 'create']);
 });
 
 Route::middleware(['auth', 'checkrole:1,3'])->group(function () {

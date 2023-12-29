@@ -16,14 +16,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        if(!auth()->user()->mahasiswa)
-        {
-            Mahasiswa::create([
-                'user_id' => auth()->user()->id
-            ]);
-        }
+        $avatar = auth()->user()->avatar;
 
-        return view('mahasiswa.index');
+        return view('mahasiswa.index', ['title' => 'Dashboard', 'avatar' => $avatar]);
     }
 
     /**
@@ -31,9 +26,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        $dosen = Dosen::all();
-
-        return view('mahasiswa.add', ['data' => $dosen]);
+        //
     }
 
     /**
@@ -49,7 +42,13 @@ class MahasiswaController extends Controller
      */
     public function show(Mahasiswa $mahasiswa)
     {
-        //
+        $dosen = Dosen::all();
+
+        $avatar = auth()->user()->avatar;
+
+        $mahasiswa = auth()->user()->mahasiswa;
+
+        return view('mahasiswa.add', ['data' => $dosen, 'title' => 'Data Diri', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
     }
 
     /**

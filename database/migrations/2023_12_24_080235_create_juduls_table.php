@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('nama_dosen4');
             $table->string('bukti');
             $table->string('status');
+            $table->string('dospem1')->nullable();
+            $table->string('dospem2')->nullable();
             $table->timestamps();
         });
     }
