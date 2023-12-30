@@ -114,7 +114,22 @@ class UserController extends Controller
     {
         $avatar = $user->avatar;
         $mahasiswa = $user;
-        return view('user.show', ['title' => 'Pengaturan Akun', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
+        $roleId = $user->role_id;
+        $role = '';
+
+        if ($roleId === 1) {
+            $role = 'main';
+        } else if($roleId === 2) {
+            $role = 'dosen';
+        } else if($roleId === 3) {
+            $role = 'kajur';
+        } else if($roleId === 4) {
+            $role = 'sekjur';
+        } else {
+            $role = 'admin';
+        }
+
+        return view('user.show', ['title' => 'Pengaturan Akun', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa, 'role' => $role]);
     }
 
     /**

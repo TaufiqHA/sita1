@@ -21,7 +21,7 @@
                 <a href="/mahasiswa" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Dashboard")
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif">Dashboard</a>
-                @if (auth()->user()->mahasiswa->nama === null)
+                @if ($mahasiswa->nama === null)
                     <div class="tooltip" data-tip='mohon mengisi data diri'>
                         <h2 class="p-5 text-gray-600" >Judul</h2>
                     </div>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-gray-500 rounded-box w-36 text-white">
-                            <li><a href="/mahasiswa/{{ auth()->user()->mahasiswa->id }}" >Data diri</a></li>
+                            <li><a href="/mahasiswa/{{ $mahasiswa->id }}" >Data diri</a></li>
                             <li><a href="/user/{{ auth()->user()->id }}/edit" >Akun</a></li>
                         </ul>
                     </div>

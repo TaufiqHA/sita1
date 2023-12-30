@@ -22,7 +22,7 @@ class JudulController extends Controller
             $judul = Judul::all();
         }
 
-        $mahasiswa = Mahasiswa::all();
+        $mahasiswa = Mahasiswa::where('nama', '!=', null)->get();
 
         $avatar = auth()->user()->avatar;
 

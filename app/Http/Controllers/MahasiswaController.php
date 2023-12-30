@@ -18,7 +18,9 @@ class MahasiswaController extends Controller
     {
         $avatar = auth()->user()->avatar;
 
-        return view('mahasiswa.index', ['title' => 'Dashboard', 'avatar' => $avatar]);
+        $mahasiswa = auth()->user()->mahasiswa;
+
+        return view('mahasiswa.index', ['title' => 'Dashboard', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
     }
 
     /**
@@ -45,8 +47,6 @@ class MahasiswaController extends Controller
         $dosen = Dosen::all();
 
         $avatar = auth()->user()->avatar;
-
-        $mahasiswa = auth()->user()->mahasiswa;
 
         return view('mahasiswa.add', ['data' => $dosen, 'title' => 'Data Diri', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
     }

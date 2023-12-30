@@ -45,7 +45,7 @@
                     <div class="label">
                         <span class="label-text font-semibold text-md">Indeks Prestasi Kumulatif (IPK)</span>
                     </div>
-                    <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="ipk" />
+                    <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="ipk" value="{{ $mahasiswa->ipk }}" />
                 </label>
             </div>
             <div class="w-full h-full flex gap-5" >

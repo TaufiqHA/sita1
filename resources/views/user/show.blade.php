@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.' . $role)
 
 @section('container')
     <div class="w-full h-full overflow-y-auto" >
