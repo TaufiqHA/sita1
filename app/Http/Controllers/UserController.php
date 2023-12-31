@@ -113,9 +113,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $avatar = $user->avatar;
-        $mahasiswa = $user;
         $roleId = $user->role_id;
         $role = '';
+        $mahasiswa = $user->mahasiswa;
 
         if ($roleId === 1) {
             $role = 'main';
@@ -129,7 +129,7 @@ class UserController extends Controller
             $role = 'admin';
         }
 
-        return view('user.show', ['title' => 'Pengaturan Akun', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa, 'role' => $role]);
+        return view('user.show', ['title' => 'Pengaturan Akun', 'avatar' => $avatar, 'user' => $user, 'role' => $role, 'mahasiswa' => $mahasiswa]);
     }
 
     /**

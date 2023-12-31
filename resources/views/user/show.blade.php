@@ -10,13 +10,13 @@
                     <div class="label">
                         <span class="label-text font-semibold text-lg">Username</span>
                     </div>
-                    <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="username" value="{{ $mahasiswa->username }}" />
+                    <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="username" value="{{ $user->username }}" />
                 </label>
                 <label class="form-control w-full max-w-xl grow">
                     <div class="label">
                         <span class="label-text font-semibold text-lg">Email</span>
                     </div>
-                    <input type="email" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="email" value="{{ $mahasiswa->email }}" />
+                    <input type="email" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="email" value="{{ $user->email }}" />
                 </label>
             </div>
             <div>
