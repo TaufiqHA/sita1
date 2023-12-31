@@ -96,7 +96,12 @@
                                         </label>
                                     </div>
                                     <div>
-                                        <a href="{{ route('download', ['judul' => $item->id]) }}">bukti konsul</a>
+                                        <label class="form-control w-full h-full grow">
+                                            <div class="label">
+                                                <span class="label-text text-xs font-semibold">Bukti Konsultasi</span>
+                                            </div>
+                                            <a href="{{ route('download', ['judul' => $item->id]) }}" class="link ms-1">Downlaod</a>
+                                        </label>
                                     </div>
                                 </div>
                             </div>

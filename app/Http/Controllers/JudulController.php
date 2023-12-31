@@ -154,4 +154,9 @@ class JudulController extends Controller
     {
         return response()->download('storage/' . $judul->bukti, 'bukti konsultasi');
     }
+
+    public function updateDospem(Judul $judul)
+    {
+        dd($judul);
+    }
 }

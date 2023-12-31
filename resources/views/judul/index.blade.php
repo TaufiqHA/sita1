@@ -103,7 +103,14 @@
                                                     <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $judul->nama_dosen4 }}</textarea>
                                                 </label>
                                             </div>
-                                            <div></div>
+                                            <div>
+                                                <label class="form-control w-full h-full grow">
+                                                    <div class="label">
+                                                        <span class="label-text text-xs font-semibold">Bukti Konsultasi</span>
+                                                    </div>
+                                                    <a href="{{ route('download', ['judul' => $judul->id]) }}" class="link ms-1">Download</a>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     @endforeach
