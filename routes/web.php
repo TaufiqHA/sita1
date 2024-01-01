@@ -44,6 +44,10 @@ Route::middleware(['auth', 'checkrole:3'])->group(function () {
     Route::get('/kajur/create', [KajurController::class, 'create']);
     Route::put('/kajur/{kajur}', [KajurController::class, 'update']);
     Route::put('/judul/{judul}', [JudulController::class, 'updateStatus']);
+    Route::put('/updateDospem/{judul}', [JudulController::class, 'updateDospem'])->name('updateDospem');
+    Route::get('/judul', [JudulController::class, 'index']);
+    Route::get('/judul/{judul}', [JudulController::class, 'show'])->name('showJudul');
+    Route::get('/showJudulMhs/{mahasiswa}', [JudulController::class, 'showJudulMahasiswa'])->name('showJudulMahasiswa');
 });
 
 Route::middleware(['auth', 'checkrole:4'])->group(function () {
@@ -57,9 +61,4 @@ Route::middleware(['auth', 'checkrole:5'])->group(function () {
     Route::get('/user/create', [UserController::class, 'create']);
     Route::post('/user', [UserController::class, 'store']);
     Route::get('/mahasiswa/create', [MahasiswaController::class, 'create']);
-});
-
-Route::middleware(['auth', 'checkrole:1,3'])->group(function () {
-    Route::get('/judul', [JudulController::class, 'index']);
-    Route::get('/judul/{judul}', [JudulController::class, 'show']);
 });

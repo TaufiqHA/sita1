@@ -17,7 +17,7 @@
                 <a href="/kajur" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Dashboard")
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif ">Dashboard</a>
-                <a href="/judul" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "List Judul")
+                <a href="/judul" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Tugas Akhir" || $title === 'List Judul' || $title === "Detail Judul")
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif">Tugas Akhir</a>
                 <a href="/logout" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Logout</a>
@@ -27,8 +27,8 @@
             <div class="flex-1 w-full h-[15%] flex justify-between">
                 <div class="flex flex-col gap-3 justify-center">
                     <h2 class="font-semibold text-3xl">{{ $title }}</h2>
-                    @if ($title === "Dashboard")
-                        <p class="font-semibold text-lg">Selamat Datang Kajur</p>
+                    @if ($title === "List Judul")
+                        <p class="font-semibold text-lg">{{ $mahasiswa->nama }}</p>
                     @endif
                 </div>
                 <div class="flex items-center gap-5" >
@@ -102,6 +102,74 @@
             .catch(error => console.error('Error:', error));
         });
     });
+    </script>
+    <script>
+        const toggleButton = document.getElementById('toggleButton');
+        const toggleButton1 = document.getElementById('toggleButton1');
+        const additionalInput = document.getElementById('additionalInput');
+
+        toggleButton.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInput.name = 'dospem1'
+            }
+        });
+
+        toggleButton1.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInput.name = 'dospem2'
+            }
+        });
+
+        // toggle 3
+        const toggleButton2 = document.getElementById('toggleButton2');
+        const toggleButton3 = document.getElementById('toggleButton3');
+        const additionalInput1 = document.getElementById('additionalInput1');
+
+        toggleButton2.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInput1.name = 'dospem1'
+            }
+        });
+
+        toggleButton3.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInput1.name = 'dospem2'
+            }
+        });
+
+        // toggle 5
+        const toggleButton4 = document.getElementById('toggleButton4');
+        const toggleButton5 = document.getElementById('toggleButton5');
+        const additionalInput2 = document.getElementById('additionalInput2');
+
+        toggleButton4.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInput2.name = 'dospem1'
+            }
+        });
+
+        toggleButton5.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInput2.name = 'dospem2'
+            }
+        });
+
+        // toggle 7
+        const toggleButton6 = document.getElementById('toggleButton6');
+        const toggleButton7 = document.getElementById('toggleButton7');
+        const additionalInput3 = document.getElementById('additionalInput3');
+
+        toggleButton6.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInput3.name = 'dospem1'
+            }
+        });
+
+        toggleButton7.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInput3.name = 'dospem2'
+            }
+        });
     </script>
 </body>
 </html>

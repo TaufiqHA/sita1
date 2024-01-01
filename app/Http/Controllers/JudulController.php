@@ -26,7 +26,7 @@ class JudulController extends Controller
 
         $avatar = auth()->user()->avatar;
 
-        return view('judul.index', ['judul' => $judul, 'title' => 'List Judul', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
+        return view('judul.index', ['judul' => $judul, 'title' => 'Tugas Akhir', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
     }
 
     /**
@@ -92,20 +92,8 @@ class JudulController extends Controller
      */
     public function show(Judul $judul)
     {
-        $role = '';
-
-        if(auth()->user()->role_id === 1)
-        {
-            $role = 'mahasiswa';
-        } else if(auth()->user()->role_id === 3)
-        {
-            $role = 'kajur';
-        }
-
         $avatar = auth()->user()->avatar;
-        $dosen = Dosen::all();
-
-        return view('judul.show', ['judul' => $judul, 'role' => $role, 'title' => 'Detail Judul', 'avatar' => $avatar, 'dosen' => $dosen]);
+        return view('judul.detail', ['title' => 'Detail Judul', 'avatar' => $avatar]);
     }
 
     /**
@@ -155,8 +143,14 @@ class JudulController extends Controller
         return response()->download('storage/' . $judul->bukti, 'bukti konsultasi');
     }
 
-    public function updateDospem(Judul $judul)
+    public function updateDospem(Judul $judul, Request $request)
     {
-        dd($judul);
+        dd($request);
+    }
+
+    public function showJudulMahasiswa(Mahasiswa $mahasiswa, Request $request)
+    {
+        $avatar = auth()->user()->avatar;
+        return view('judul.show', ['title' => 'List Judul', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
     }
 }
