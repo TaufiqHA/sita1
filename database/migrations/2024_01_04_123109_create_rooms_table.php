@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('draft')->nullable();
             $table->foreignId('revisi_id')->nullable();
             $table->string('status')->nullable();
+            $table->date('tanggal_persetujuan')->nullable();
             $table->timestamps();
         });
     }

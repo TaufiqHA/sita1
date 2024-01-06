@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('revisis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('room_id');
             $table->text('revisi');
+            $table->date('tanggal_revisi');
             $table->timestamps();
         });
     }
