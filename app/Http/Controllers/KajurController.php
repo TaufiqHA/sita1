@@ -88,4 +88,11 @@ class KajurController extends Controller
     {
         //
     }
+
+    public function tugasAkhir()
+    {
+        $avatar = auth()->user()->avatar;
+
+        return view('kajur.tugasAkhir', ['title' => 'Tugas Akhir', 'avatar' => $avatar]);
+    }
 }

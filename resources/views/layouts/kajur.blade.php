@@ -9,7 +9,11 @@
 </head>
 <body>
     <div class="w-full h-screen flex overflow-hidden">
-        <div class="w-[15%] h-screen bg-gray-500">
+        <div class="w-[15%] h-screen @if (auth()->user()->tema === 'light')
+            bg-gray-300
+            @else
+            bg-gray-500
+        @endif">
             <a href="/kajur" class="my-7 w-full flex justify-center" >
                 <img src="{{ asset('/img/logo_sita.png') }}" alt="logo sita" class="w-[60%]">
             </a>
@@ -17,7 +21,7 @@
                 <a href="/kajur" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Dashboard")
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif ">Dashboard</a>
-                <a href="/judul" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Tugas Akhir" || $title === 'List Judul' || $title === "Detail Judul")
+                <a href="{{ route('tugasAkhir') }}" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Tugas Akhir" || $title === 'List Judul' || $title === "Detail Judul")
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif">Tugas Akhir</a>
                 <a href="/logout" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Logout</a>
@@ -32,7 +36,7 @@
                     @endif
                 </div>
                 <div class="flex items-center gap-5" >
-                    <label class="swap swap-rotate">
+                    {{-- <label class="swap swap-rotate">
                         <!-- this hidden checkbox controls the state -->
                         <input type="checkbox" class="theme-controller" value="light" @if (auth()->user()->tema === 'light')
                             checked
@@ -44,7 +48,7 @@
                         <!-- moon icon -->
                         <svg class="swap-off fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
 
-                    </label>
+                    </label> --}}
                     <div>
                         <div class="dropdown dropdown-end">
                             <div tabindex="0" role="button" class="avatar w-12">
@@ -60,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-2 my-7 w-full h-[85%] py-3">
+            <div class="flex-2 my-7 w-full h-[85%]">
                 @if (session()->get('success'))
                     <div role="alert" class="alert alert-success w-full max-w-xl self-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -77,7 +81,7 @@
             </div>
         </div>
     </div>
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function () {
         const themeController = document.querySelector('.theme-controller');
 
@@ -102,7 +106,7 @@
             .catch(error => console.error('Error:', error));
         });
     });
-    </script>
+    </script> --}}
     <script>
         const toggleButton = document.getElementById('toggleButton');
         const toggleButton1 = document.getElementById('toggleButton1');
@@ -110,13 +114,13 @@
 
         toggleButton.addEventListener('change', function() {
             if (this.checked) {
-                additionalInput.name = 'dospem1'
+                additionalInput.name = 'dospem1_id'
             }
         });
 
         toggleButton1.addEventListener('change', function() {
             if (this.checked) {
-                additionalInput.name = 'dospem2'
+                additionalInput.name = 'dospem2_id'
             }
         });
 
@@ -127,13 +131,13 @@
 
         toggleButton2.addEventListener('change', function() {
             if (this.checked) {
-                additionalInput1.name = 'dospem1'
+                additionalInput1.name = 'dospem1_id'
             }
         });
 
         toggleButton3.addEventListener('change', function() {
             if (this.checked) {
-                additionalInput1.name = 'dospem2'
+                additionalInput1.name = 'dospem2_id'
             }
         });
 
@@ -144,13 +148,13 @@
 
         toggleButton4.addEventListener('change', function() {
             if (this.checked) {
-                additionalInput2.name = 'dospem1'
+                additionalInput2.name = 'dospem1_id'
             }
         });
 
         toggleButton5.addEventListener('change', function() {
             if (this.checked) {
-                additionalInput2.name = 'dospem2'
+                additionalInput2.name = 'dospem2_id'
             }
         });
 
@@ -161,13 +165,13 @@
 
         toggleButton6.addEventListener('change', function() {
             if (this.checked) {
-                additionalInput3.name = 'dospem1'
+                additionalInput3.name = 'dospem1_id'
             }
         });
 
         toggleButton7.addEventListener('change', function() {
             if (this.checked) {
-                additionalInput3.name = 'dospem2'
+                additionalInput3.name = 'dospem2_id'
             }
         });
     </script>

@@ -11,6 +11,8 @@ use App\Models\Dosen;
 use App\Models\Kajur;
 use App\Models\Sekjur;
 use App\Models\Admin;
+use App\Models\Jurusan;
+use App\Models\Fakultas;
 
 class DatabaseSeeder extends Seeder
 {
@@ -47,7 +49,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Mahasiswa::create([
-            'user_id' => 1
+            'user_id' => 1,
+            'statusTA' => 'Belum Mengajukan'
         ]);
 
         User::create([
@@ -92,6 +95,71 @@ class DatabaseSeeder extends Seeder
 
         Admin::create([
             'user_id' => 5
+        ]);
+
+        Jurusan::create([
+            'jurusan' => 'Teknik Pengembangan Wilayah dan Kota
+            '
+        ]);
+
+        Jurusan::create([
+            'jurusan' => 'Teknik Informatika'
+        ]);
+
+        Jurusan::create([
+            'jurusan' => 'Teknik Arsitektur'
+        ]);
+
+        Jurusan::create([
+            'jurusan' => 'Biologi'
+        ]);
+
+        Jurusan::create([
+            'jurusan' => 'Kimia'
+        ]);
+
+        Jurusan::create([
+            'jurusan' => 'Fisika'
+        ]);
+
+        Jurusan::create([
+            'jurusan' => 'Matematika'
+        ]);
+
+        Jurusan::create([
+            'jurusan' => 'Ilmu Peternakan'
+        ]);
+
+        Fakultas::create([
+            'fakultas' => 'Syariah dan Hukum'
+        ]);
+
+        Fakultas::create([
+            'fakultas' => 'Tarbiyah dan Keguruan'
+        ]);
+
+        Fakultas::create([
+            'fakultas' => 'Ushuluddin Filsafat dan Politik'
+        ]);
+
+        Fakultas::create([
+            'fakultas' => 'Adab dan Humaniora'
+        ]);
+
+        Fakultas::create([
+            'fakultas' => 'Dakwah dan Komunikasi'
+        ]);
+
+        Fakultas::create([
+            'fakultas' => 'Sains dan Teknologi'
+        ]);
+
+        Fakultas::create([
+            'fakultas' => 'Kedokteran dan Ilmu Kesehatan'
+        ]);
+
+        Fakultas::create([
+            'fakultas' => 'Ekonomi dan Bisnis Islam'
         ]);
 
         User::factory(5)->create();

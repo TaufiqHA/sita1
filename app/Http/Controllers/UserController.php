@@ -58,7 +58,8 @@ class UserController extends Controller
 
         if($latest->role_id === 1) {
             Mahasiswa::create([
-                'user_id' => $latest->id
+                'user_id' => $latest->id,
+                'statusTA' => 'Belum mengajukan'
             ]);
 
             return back()->with([

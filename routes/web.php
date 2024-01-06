@@ -10,6 +10,8 @@ use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\SekjurController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JudulController;
+use App\Http\Controllers\BimbinganController;
+use App\Http\Controllers\RoomController;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
@@ -31,12 +33,20 @@ Route::middleware(['auth', 'checkrole:1'])->group(function () {
     Route::put('/mahasiswa/{mahasiswa}', [MahasiswaController::class, 'update']);
     Route::get('/judul/create', [JudulController::class, 'create']);
     Route::post('/judul', [JudulController::class, 'store']);
+    Route::get('/bimbingan/mahasiswa', [BimbinganController::class, 'index'])->name('bimbingan');
+    Route::get('/room/mahasiswa/{room}', [RoomController::class, 'index'])->name('room');
+    Route::post('/room/mahasiswa/{room}', [RoomController::class, 'uploadDraft'])->name('uploadDraft');
 });
 
 Route::middleware(['auth', 'checkrole:2'])->group(function () {
     Route::get('/dosen', [DosenController::class, 'index']);
-    Route::get('/dosen/create', [DosenController::class, 'create']);
-    Route::put('/dosen/{dosen}', [DosenController::class, 'update']);
+    Route::get('/dosen/{dosen}', [DosenController::class, 'create'])->name('addDosen');
+    Route::put('/dosen/{dosen}', [DosenController::class, 'update'])->name('updateDosen');
+    Route::get('/bimbingan/dosen', [BimbinganController::class, 'indexDosen'])->name('bimbinganDosen');
+    Route::get('/room/dosen/{room}', [RoomController::class, 'indexDosen'])->name('roomDosen');
+    Route::get('/downloadDraft/{room}', [RoomController::class, 'download'])->name('downloadDraft');
+    Route::put('/room/{room}/status', [RoomController::class, 'status'])->name('statusRoom');
+    Route::put('/room/{room}/revisi', [RoomController::class, 'revisi'])->name('revisiRoom');
 });
 
 Route::middleware(['auth', 'checkrole:3'])->group(function () {
@@ -48,6 +58,9 @@ Route::middleware(['auth', 'checkrole:3'])->group(function () {
     Route::get('/judul', [JudulController::class, 'index']);
     Route::get('/judul/{judul}', [JudulController::class, 'show'])->name('showJudul');
     Route::get('/showJudulMhs/{mahasiswa}', [JudulController::class, 'showJudulMahasiswa'])->name('showJudulMahasiswa');
+    Route::get('/tugasAkhir', [KajurController::class, 'tugasAkhir'])->name('tugasAkhir');
+    Route::get('/tolakJudul/{judul}', [JudulController::class, 'tolakJudul'])->name('tolakJudul');
+    Route::post('/terimaJudul/{judul}', [JudulController::class, 'terimaJudul'])->name('terimaJudul');
 });
 
 Route::middleware(['auth', 'checkrole:4'])->group(function () {

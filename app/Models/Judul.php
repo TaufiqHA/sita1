@@ -22,4 +22,9 @@ class Judul extends Model
     {
         return $this->belongsTo(Bimbingan::class);
     }
+
+    public function skripsi()
+    {
+        return $this->hasOne(Skripsi::class);
+    }
 }

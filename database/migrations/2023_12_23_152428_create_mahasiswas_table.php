@@ -19,10 +19,13 @@ return new class extends Migration
             $table->string('nim')->nullable();
             $table->string('angkatan')->nullable();
             $table->string('sks')->nullable();
+            $table->string('jurusan')->nullable();
+            $table->string('fakultas')->nullable();
             $table->date('tanggal_ta')->nullable();
             $table->string('surah')->nullable();
             $table->string('ipk')->nullable();
             $table->string('hp')->nullable();
+            $table->string('statusTA')->nullable();
             $table->timestamps();
         });
     }

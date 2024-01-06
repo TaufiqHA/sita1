@@ -6,8 +6,6 @@
         <thead>
             <tr>
                 <th>Judul</th>
-                <th>Dosen Pembimbing 1</th>
-                <th>Dosen Pembimbing 2</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -16,94 +14,122 @@
             @foreach ($judul as $item)
                 <tr>
                     <td>{{ $item->judul }}</td>
-                    <td>{{ $item->dospem1 }}</td>
-                    <td>{{ $item->dospem2 }}</td>
-                    <td>{{ $item->status }}</td>
                     <td>
-                        <!-- You can open the modal using ID.showModal() method -->
-                        <button class="btn btn-warning" onclick="my_modal_{{ $item->id }}.showModal()">show</button>
-                        <dialog id="my_modal_{{ $item->id }}" class="modal">
+                        @if ($item->status === 'Diterima')
+                            <div class="btn btn-success" >
+                                {{ $item->status }}
+                            </div>
+                        @elseif ($item->status === 'Ditolak')
+                            <div class="btn btn-error" >
+                                {{ $item->status }}
+                            </div>
+                        @elseif ($item->status === 'Diajukan')
+                            <div class="btn btn-warning" >
+                                {{ $item->status }}
+                            </div>
+                        @endif
+                    </td>
+                    <td>
+                        <button class="btn btn-warning" onclick="my_modal{{ $item->id }}.showModal()">Detail</button>
+                        <dialog id="my_modal{{ $item->id }}" class="modal">
                             <div class="modal-box w-11/12 max-w-5xl">
                                 <form method="dialog">
                                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                 </form>
                                 <h2 class="font-semibold text-md">Detail Judul</h2>
-                                <div class="w-full h-full flex flex-col gap-5" >
-                                    <div class="w-full h-full flex gap-5">
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Judul</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly >{{ $item->judul }}</textarea>
-                                        </label>
-                                        <label class="form-control w-26 h-full grow-0">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Konsentrasi</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->konsentrasi }}</textarea>
-                                        </label>
+                                @if ($item->status === 'Diterima')
+                                    <div class="w-full h-full flex flex-col gap-5" >
+                                        <div class="w-full h-full flex gap-5">
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Nama</span>
+                                                </div>
+                                                <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->mahasiswa->nama }}" readonly />
+                                            </label>
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">NIM</span>
+                                                </div>
+                                                <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->mahasiswa->nim }}" readonly />
+                                            </label>
+                                        </div>
+                                        <div class="w-full h-full flex gap-5">
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Judul</span>
+                                                </div>
+                                                <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly >{{ $item->judul }}</textarea>
+                                            </label>
+                                        </div>
+                                        <div class="w-full h-full flex gap-5" >
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Dosen Pembimbing 1</span>
+                                                </div>
+                                                <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->skripsi->dospem1->nama }}" readonly />
+                                            </label>
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Dosen Pembimbing 2</span>
+                                                </div>
+                                                <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->skripsi->dospem2->nama }}" readonly />
+                                            </label>
+                                        </div>
+                                        <div class="w-full h-full flex gap-5" >
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Tanggal Pengajuan</span>
+                                                </div>
+                                                <input type="date" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->tanggal_pengajuan }}" readonly />
+                                            </label>
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Tanggal Disetujui</span>
+                                                </div>
+                                                <input type="date" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->skripsi->tanggal_disetujui }}" readonly />
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="w-full h-full flex gap-5" >
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Metode Analisis yang Digunakan</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->metode }}</textarea>
-                                        </label>
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Teknik Pengumpulan Data</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->teknik }}</textarea>
-                                        </label>
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Bentuk Data</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->bentuk_data }}</textarea>
-                                        </label>
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Tempat Pengumpulan Data</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->tempat }}</textarea>
-                                        </label>
+                                @elseif($item->status === 'Ditolak')
+                                    <div class="w-full h-full flex flex-col gap-5" >
+                                        <div class="w-full h-full flex gap-5">
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Nama</span>
+                                                </div>
+                                                <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->mahasiswa->nama }}" readonly />
+                                            </label>
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">NIM</span>
+                                                </div>
+                                                <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->mahasiswa->nim }}" readonly />
+                                            </label>
+                                        </div>
+                                        <div class="w-full h-full flex gap-5">
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Judul</span>
+                                                </div>
+                                                <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly >{{ $item->judul }}</textarea>
+                                            </label>
+                                        </div>
+                                        <div class="w-full h-full flex gap-5" >
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Tanggal Pengajuan</span>
+                                                </div>
+                                                <input type="date" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->tanggal_pengajuan }}" readonly />
+                                            </label>
+                                            <label class="form-control w-full h-full grow">
+                                                <div class="label">
+                                                    <span class="label-text text-xs font-semibold">Tanggal Ditolak</span>
+                                                </div>
+                                                <input type="date" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $item->tanggal_ditolak }}" readonly />
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="w-full h-full flex gap-5" >
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Calon Dosen Pembimbing 1</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->nama_dosen1 }}</textarea>
-                                        </label>
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Calon Dosen Pembimbing 2</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->nama_dosen2 }}</textarea>
-                                        </label>
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Calon Dosen Pembimbing 3</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->nama_dosen3 }}</textarea>
-                                        </label>
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Calon Dosen Pembimbing 4</span>
-                                            </div>
-                                            <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly>{{ $item->nama_dosen4 }}</textarea>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label class="form-control w-full h-full grow">
-                                            <div class="label">
-                                                <span class="label-text text-xs font-semibold">Bukti Konsultasi</span>
-                                            </div>
-                                            <a href="{{ route('download', ['judul' => $item->id]) }}" class="link ms-1">Downlaod</a>
-                                        </label>
-                                    </div>
-                                </div>
+                                @endif
                             </div>
                         </dialog>
                     </td>
@@ -125,7 +151,14 @@
             <form action="/judul" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
                 @csrf
                 <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
+                <input type="hidden" name="tanggal_pengajuan" value="{{ now() }}">
                 <div class="w-full h-full flex gap-5" >
+                    <label class="form-control w-full max-w-xl grow">
+                        <div class="label">
+                            <span class="label-text font-semibold text-lg ">NIM</span>
+                        </div>
+                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $mahasiswa->nim }}" readonly />
+                    </label>
                     <label class="form-control w-full max-w-xl grow">
                         <div class="label">
                             <span class="label-text font-semibold text-lg ">Nama</span>
@@ -134,23 +167,17 @@
                     </label>
                     <label class="form-control w-full max-w-xl grow">
                         <div class="label">
-                            <span class="label-text font-semibold text-lg ">NIM</span>
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" value="{{ $mahasiswa->nim }}" readonly />
-                    </label>
-                </div>
-                <div class="w-full h-full flex gap-5" >
-                    <label class="form-control w-full max-w-xl grow">
-                        <div class="label">
-                            <span class="label-text font-semibold text-lg ">Judul</span>
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="judul" required />
-                    </label>
-                    <label class="form-control w-full max-w-xl grow">
-                        <div class="label">
                             <span class="label-text font-semibold text-lg">Konsentrasi</span>
                         </div>
                         <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="konsentrasi" required />
+                    </label>
+                </div>
+                <div class="w-full h-full flex gap-5" >
+                    <label class="form-control w-full grow">
+                        <div class="label">
+                            <span class="label-text font-semibold text-lg ">Judul</span>
+                        </div>
+                        <textarea class="textarea textarea-bordered h-24" placeholder="type here" name="judul" required></textarea>
                     </label>
                 </div>
                 <div class="w-full h-full flex gap-5" >
@@ -170,19 +197,25 @@
                             <option value="Sekunder" >Sekunder</option>
                         </select>
                     </label>
-                </div>
-                <div class="w-full h-full flex gap-5">
                     <label class="form-control w-full max-w-xl grow">
                         <div class="label">
                             <span class="label-text font-semibold text-lg">Metode Analisis yang Digunakan</span>
                         </div>
                         <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="metode" required />
                     </label>
+                </div>
+                <div class="w-full h-full flex gap-5">
                     <label class="form-control w-full max-w-xl grow">
                         <div class="label">
                             <span class="label-text font-semibold text-lg">Tempat Pengumpulan Data</span>
                         </div>
                         <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl" name="tempat" required />
+                    </label>
+                    <label class="form-control w-full max-w-xl">
+                        <div class="label">
+                            <span class="label-text font-semibold text-lg">Bukti konsultasi</span>
+                        </div>
+                        <input type="file" class="file-input file-input-bordered w-full max-w-xl" name="bukti" required />
                     </label>
                 </div>
                 <div class="w-full h-full flex gap-5" >
@@ -193,7 +226,7 @@
                         <select class="select select-bordered" name="nama_dosen1" required>
                             <option disabled selected>Pilih</option>
                             @foreach ($dosen as $item)
-                                <option value="{{ $item->nama }}" >{{ $item->nama }}</option>
+                                <option value="{{ $item->id }}" >{{ $item->nama }}</option>
                             @endforeach
                         </select>
                     </label>
@@ -204,7 +237,7 @@
                         <select class="select select-bordered" name="nama_dosen2" required>
                             <option disabled selected>Pilih</option>
                             @foreach ($dosen as $item)
-                                <option value="{{ $item->nama }}" >{{ $item->nama }}</option>
+                                <option value="{{ $item->id }}" >{{ $item->nama }}</option>
                             @endforeach
                         </select>
                     </label>
@@ -215,7 +248,7 @@
                         <select class="select select-bordered" name="nama_dosen3" required>
                             <option disabled selected>Pilih</option>
                             @foreach ($dosen as $item)
-                                <option value="{{ $item->nama }}" >{{ $item->nama }}</option>
+                                <option value="{{ $item->id }}" >{{ $item->nama }}</option>
                             @endforeach
                         </select>
                     </label>
@@ -226,17 +259,11 @@
                         <select class="select select-bordered" name="nama_dosen4" required>
                             <option disabled selected>Pilih</option>
                             @foreach ($dosen as $item)
-                                <option value="{{ $item->nama }}" >{{ $item->nama }}</option>
+                                <option value="{{ $item->id }}" >{{ $item->nama }}</option>
                             @endforeach
                         </select>
                     </label>
                 </div>
-                <label class="form-control w-full max-w-xl">
-                    <div class="label">
-                        <span class="label-text font-semibold text-lg">Bukti konsultasi</span>
-                    </div>
-                    <input type="file" class="file-input file-input-bordered w-full max-w-xl" name="bukti" required />
-                </label>
                 <input type="hidden" name="status" value="Diajukan" />
                 <input type="hidden" name="dospem1" value="-">
                 <input type="hidden" name="dospem2" value="-">

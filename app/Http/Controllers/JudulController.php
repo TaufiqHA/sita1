@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Mahasiswa;
 use App\Models\Dosen;
+use App\Models\Skripsi;
+use App\Models\Room;
 
 class JudulController extends Controller
 {
@@ -64,8 +66,7 @@ class JudulController extends Controller
             'nama_dosen3' => 'required',
             'nama_dosen4' => 'required',
             'status' => 'required',
-            'dospem1' => 'required',
-            'dospem2' => 'required',
+            'tanggal_pengajuan' => 'required'
         ]);
 
         if($validator->fails())
@@ -74,6 +75,8 @@ class JudulController extends Controller
         }
 
         $validated = $validator->validate();
+
+        Mahasiswa::where('id', $request->mahasiswa_id)->update(['statusTA' => 'Diajukan']);
 
         if($request->file('bukti'))
         {
@@ -93,7 +96,7 @@ class JudulController extends Controller
     public function show(Judul $judul)
     {
         $avatar = auth()->user()->avatar;
-        return view('judul.detail', ['title' => 'Detail Judul', 'avatar' => $avatar]);
+        return view('judul.detail', ['title' => 'Detail Judul', 'avatar' => $avatar, 'judul' => $judul]);
     }
 
     /**
@@ -145,12 +148,65 @@ class JudulController extends Controller
 
     public function updateDospem(Judul $judul, Request $request)
     {
-        dd($request);
+        $validator = Validator::make($request->all(), [
+            'dospem1' => 'required',
+            'dospem2' => 'required',
+        ]);
+
+        if($validator->fails())
+        {
+            return back()->withErrors($validator);
+        }
+
+        $validated = $validator->validate();
+
+        $validated['status'] = 'diterima';
+
+        Judul::where('id', $judul->id)->update($validated);
+
+        Mahasiswa::where('id', $judul->mahasiswa->id)->update(['statusTA' => 'Diterima']);
+
+        return redirect(route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]));
     }
 
     public function showJudulMahasiswa(Mahasiswa $mahasiswa, Request $request)
     {
         $avatar = auth()->user()->avatar;
         return view('judul.show', ['title' => 'List Judul', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
+    }
+
+    public function tolakJudul(Judul $judul)
+    {
+        Judul::where('id', $judul->id)->update(['status' => 'Ditolak', 'tanggal_ditolak' => now()]);
+        return redirect(route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]));
+    }
+
+    public function terimaJudul(Judul $judul, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'judul_id' => 'required',
+            'dospem1_id' => 'required',
+            'dospem2_id' => 'required',
+            'tanggal_disetujui' => 'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return back()->withErrors($validator);
+        }
+
+        $validated = $validator->validate();
+
+        Skripsi::create($validated);
+
+        Judul::where('id', $judul->id)->update(['status' => 'Diterima']);
+
+        Mahasiswa::where('id', $judul->mahasiswa->id)->update(['statusTA' => 'Diterima']);
+
+        Room::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem1_id]);
+        Room::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem2_id]);
+
+        return redirect(route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]));
+
     }
 }

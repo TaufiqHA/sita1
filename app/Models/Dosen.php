@@ -20,4 +20,19 @@ class Dosen extends Model
     {
         return $this->belongsTo(Bimbingan::class);
     }
+
+    public function dospem1()
+    {
+        return $this->hasMany(Skripsi::class, 'dospem1');
+    }
+
+    public function dospem2()
+    {
+        return $this->hasMany(Skripsi::class, 'dospem2');
+    }
+
+    public function room()
+    {
+        return $this->hasMany(Room::class);
+    }
 }

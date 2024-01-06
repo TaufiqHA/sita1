@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Dosen;
+use App\Models\Jurusan;
+use App\Models\Fakultas;
 
 class MahasiswaController extends Controller
 {
@@ -48,7 +50,11 @@ class MahasiswaController extends Controller
 
         $avatar = auth()->user()->avatar;
 
-        return view('mahasiswa.add', ['data' => $dosen, 'title' => 'Data Diri', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
+        $jurusan = Jurusan::all();
+
+        $fakultas = Fakultas::all();
+
+        return view('mahasiswa.add', ['data' => $dosen, 'title' => 'Data Diri', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa, 'jurusan' => $jurusan, 'fakultas' => $fakultas]);
     }
 
     /**
@@ -69,10 +75,13 @@ class MahasiswaController extends Controller
             'nim' => 'required',
             'sks' => 'required',
             'tanggal_ta' => 'required',
+            'angkatan' => 'required',
             'surah' => 'required',
             'ipk' => 'required',
             'hp' => 'required',
             'dosen_pa' => 'required',
+            'jurusan' => 'required',
+            'fakultas' => 'required',
         ]);
 
         if($validator->fails())

@@ -28,9 +28,9 @@ class DosenController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Dosen $dosen)
     {
-        return view('dosen.add');
+        return view('dosen.add', ['title' => 'Data Diri', 'avatar' => auth()->user()->avatar, 'dosen' => $dosen]);
     }
 
     /**
