@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme=@if (auth()->user()->tema === 'light')
+    "light"
+@else
+    "dark"
+@endif >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +14,10 @@
 <body>
     <div class="w-full h-screen flex overflow-hidden ">
         <div class="w-[15%] h-screen  @if (auth()->user()->tema === 'light')
-            bg-gray-300
-            @else
-            bg-gray-500
-        @endif">
+                bg-gray-300
+                @else
+                bg-gray-500
+            @endif">
             <a href="/mahasiswa" class="my-7 w-full flex justify-center" >
                 <img src="{{ asset('/img/logo_sita.png') }}" alt="logo sita" class="w-[60%]">
             </a>
@@ -89,7 +93,7 @@
             </div>
         </div>
     </div>
-    {{-- <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
         const themeController = document.querySelector('.theme-controller');
 
@@ -114,6 +118,6 @@
             .catch(error => console.error('Error:', error));
         });
     });
-    </script> --}}
+    </script>
 </body>
 </html>
