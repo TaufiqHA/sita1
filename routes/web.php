@@ -61,6 +61,9 @@ Route::middleware(['auth', 'checkrole:3'])->group(function () {
     Route::get('/tugasAkhir', [KajurController::class, 'tugasAkhir'])->name('tugasAkhir');
     Route::get('/tolakJudul/{judul}', [JudulController::class, 'tolakJudul'])->name('tolakJudul');
     Route::post('/terimaJudul/{judul}', [JudulController::class, 'terimaJudul'])->name('terimaJudul');
+    Route::get('/diterima', [JudulController::class, 'diterima'])->name('diterima');
+    Route::get('/ditolak', [JudulController::class, 'ditolak'])->name('ditolak');
+    Route::get('/diajukan', [JudulController::class, 'diajukan'])->name('diajukan');
 });
 
 Route::middleware(['auth', 'checkrole:4'])->group(function () {

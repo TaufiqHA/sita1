@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kajur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Judul;
 
 class KajurController extends Controller
 {
@@ -93,6 +94,8 @@ class KajurController extends Controller
     {
         $avatar = auth()->user()->avatar;
 
-        return view('kajur.tugasAkhir', ['title' => 'Tugas Akhir', 'avatar' => $avatar]);
+        $judul = Judul::all();
+
+        return view('kajur.tugasAkhir', ['title' => 'Tugas Akhir', 'avatar' => $avatar, 'judul' => $judul]);
     }
 }

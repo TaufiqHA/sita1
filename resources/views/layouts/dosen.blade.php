@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme=@if (auth()->user()->tema === 'light')
+    "light"
+@else
+    "dark"
+@endif>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +26,6 @@
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif">Dashboard</a>
                 <a href="{{ route('bimbinganDosen') }}" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center">Bimbingan</a>
-                <a href="" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Mahasiswa</a>
                 <a href="/logout" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Logout</a>
             </div>
         </div>
@@ -78,31 +81,31 @@
             </div>
         </div>
     </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const themeController = document.querySelector('.theme-controller');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const themeController = document.querySelector('.theme-controller');
 
-    themeController.addEventListener('change', function () {
-        const themeValue = themeController.checked ? 'light' : 'dark';
-        // Kirim ke server menggunakan AJAX
-        fetch('/update-theme', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Anda mungkin perlu mengatur CSRF token
-            },
-            body: JSON.stringify({ tema: themeValue })
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Tema berhasil diubah.');
-            } else {
-                console.error('Gagal mengubah tema.');
-            }
-        })
-        .catch(error => console.error('Error:', error));
+        themeController.addEventListener('change', function () {
+            const themeValue = themeController.checked ? 'light' : 'dark';
+            // Kirim ke server menggunakan AJAX
+            fetch('/update-theme', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Anda mungkin perlu mengatur CSRF token
+                },
+                body: JSON.stringify({ tema: themeValue })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Tema berhasil diubah.');
+                } else {
+                    console.error('Gagal mengubah tema.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
     });
-});
-</script>
+    </script>
 </body>
 </html>

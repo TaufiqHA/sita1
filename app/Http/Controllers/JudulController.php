@@ -209,4 +209,25 @@ class JudulController extends Controller
         return redirect(route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]));
 
     }
+
+    public function diterima()
+    {
+        $data = Judul::where('status', 'Diterima')->get();
+
+        return response()->json($data);
+    }
+
+    public function ditolak()
+    {
+        $data = Judul::where('status', 'Ditolak')->get();
+
+        return response()->json($data);
+    }
+
+    public function diajukan()
+    {
+        $data = Judul::where('status', 'Diajukan')->get();
+
+        return response()->json($data);
+    }
 }

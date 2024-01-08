@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme=@if (auth()->user()->tema === 'light')
+    "light"
+@else
+    "dark"
+@endif >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,7 +85,7 @@
             </div>
         </div>
     </div>
-    {{-- <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
         const themeController = document.querySelector('.theme-controller');
 
@@ -106,7 +110,7 @@
             .catch(error => console.error('Error:', error));
         });
     });
-    </script> --}}
+    </script>
     <script>
         const toggleButton = document.getElementById('toggleButton');
         const toggleButton1 = document.getElementById('toggleButton1');
@@ -174,6 +178,47 @@
                 additionalInput3.name = 'dospem2_id'
             }
         });
+    </script>
+    <script>
+        const diterima = document.getElementById('diterima');
+        const ditolak = document.getElementById('ditolak');
+        const diajukan = document.getElementById('diajukan');
+        const ajax = new XMLHttpRequest();
+        diterima.addEventListener('click', function() {
+
+            ajax.addEventListener('load', function() {
+                const json = JSON.parse(ajax.responseText);
+
+                console.info(json);
+            })
+
+            ajax.open("get", "{{ route('diterima') }}")
+            ajax.send()
+        })
+
+        ditolak.addEventListener('click', function() {
+
+            ajax.addEventListener('load', function() {
+                const json = JSON.parse(ajax.responseText);
+
+                console.info(json);
+            })
+
+            ajax.open("get", "{{ route('ditolak') }}")
+            ajax.send()
+        })
+
+        diajukan.addEventListener('click', function() {
+
+            ajax.addEventListener('load', function() {
+                const json = JSON.parse(ajax.responseText);
+
+                console.info(json);
+            })
+
+            ajax.open("get", "{{ route('diajukan') }}")
+            ajax.send()
+        })
     </script>
 </body>
 </html>

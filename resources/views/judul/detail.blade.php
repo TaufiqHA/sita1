@@ -132,16 +132,18 @@
                     <a href="{{ route('download', ['judul' => $judul->id]) }}" class="link ms-1">Downlaod</a>
                 </label>
             </div>
-            <button class="btn btn-success w-full" >Terima</button>
-            <a href="{{ route('tolakJudul', ['judul' => $judul->id]) }}" class="btn btn-error w-full">
-                Tolak
-            </a>
-            <a href="{{ route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]) }}" class="btn bg-gray-400 text-black w-full" >
-                <div class="w-full h-full flex gap-4 items-center justify-center" >
-                    <img src="{{ asset('svg/arrow_left.svg') }}" alt="arrow left" class="w-5">
-                    <h2>list judul</h2>
-                </div>
-            </a>
+            <div class="w-full flex gap-5" >
+                <button class="btn btn-success grow" >Terima</button>
+                <a href="{{ route('tolakJudul', ['judul' => $judul->id]) }}" class="btn btn-error grow">
+                    Tolak
+                </a>
+                <a href="{{ route('tugasAkhir') }}" class="btn bg-gray-400 text-black grow" >
+                    <div class="w-full h-full flex gap-4 items-center justify-center" >
+                        <img src="{{ asset('svg/arrow_left.svg') }}" alt="arrow left" class="w-5">
+                        <h2>list judul</h2>
+                    </div>
+                </a>
+            </div>
         </form>
     </div>
 @endsection
