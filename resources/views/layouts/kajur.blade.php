@@ -183,40 +183,46 @@
         const diterima = document.getElementById('diterima');
         const ditolak = document.getElementById('ditolak');
         const diajukan = document.getElementById('diajukan');
+        const semua = document.getElementById('semua');
+        const content = document.getElementById('content');
         const ajax = new XMLHttpRequest();
         diterima.addEventListener('click', function() {
 
             ajax.addEventListener('load', function() {
-                const json = JSON.parse(ajax.responseText);
-
-                console.info(json);
+                content.innerHTML = ajax.responseText
             })
 
-            ajax.open("get", "{{ route('diterima') }}")
+            ajax.open("get", "{{ route('diterima') }}", true)
             ajax.send()
         })
 
         ditolak.addEventListener('click', function() {
 
             ajax.addEventListener('load', function() {
-                const json = JSON.parse(ajax.responseText);
-
-                console.info(json);
+                content.innerHTML = ajax.responseText
             })
 
-            ajax.open("get", "{{ route('ditolak') }}")
+            ajax.open("get", "{{ route('ditolak') }}", true)
             ajax.send()
         })
 
         diajukan.addEventListener('click', function() {
 
             ajax.addEventListener('load', function() {
-                const json = JSON.parse(ajax.responseText);
-
-                console.info(json);
+                content.innerHTML = ajax.responseText
             })
 
-            ajax.open("get", "{{ route('diajukan') }}")
+            ajax.open("get", "{{ route('diajukan') }}", true)
+            ajax.send()
+        })
+
+        semua.addEventListener('click', function() {
+
+            ajax.addEventListener('load', function() {
+                content.innerHTML = ajax.responseText
+            })
+
+            ajax.open("get", "{{ route('semua') }}", true)
             ajax.send()
         })
     </script>

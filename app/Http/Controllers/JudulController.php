@@ -210,24 +210,46 @@ class JudulController extends Controller
 
     }
 
+    // public function diterima()
+    // {
+    //     $data = Judul::where('status', 'Diterima')->get();
+
+    //     return response()->json($data);
+    // }
+
     public function diterima()
     {
-        $data = Judul::where('status', 'Diterima')->get();
+        $avatar = auth()->user()->avatar;
 
-        return response()->json($data);
+        $judul = Judul::where('status', 'Diterima')->get();
+
+        return view('kajur.judul', ['title' => 'Tugas Akhir', 'avatar' => $avatar, 'judul' => $judul]);
     }
 
     public function ditolak()
     {
-        $data = Judul::where('status', 'Ditolak')->get();
+        $avatar = auth()->user()->avatar;
 
-        return response()->json($data);
+        $judul = Judul::where('status', 'Ditolak')->get();
+
+        return view('kajur.judul', ['title' => 'Tugas Akhir', 'avatar' => $avatar, 'judul' => $judul]);
     }
 
     public function diajukan()
     {
-        $data = Judul::where('status', 'Diajukan')->get();
+        $avatar = auth()->user()->avatar;
 
-        return response()->json($data);
+        $judul = Judul::where('status', 'Diajukan')->get();
+
+        return view('kajur.judul', ['title' => 'Tugas Akhir', 'avatar' => $avatar, 'judul' => $judul]);
+    }
+
+    public function semua()
+    {
+        $avatar = auth()->user()->avatar;
+
+        $judul = Judul::all();
+
+        return view('kajur.judul', ['title' => 'Tugas Akhir', 'avatar' => $avatar, 'judul' => $judul]);
     }
 }

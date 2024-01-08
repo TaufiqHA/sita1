@@ -1,12 +1,14 @@
 @extends('layouts.kajur')
 
 @section('container')
-    <div class="w-full flex gap-5 flex-col" >
-        <div class="flex gap-5 items-center">
-            <a class="btn btn-success" id="diterima" >Diterima</a>
-            <a class="btn btn-error" id="ditolak" >Ditolak</a>
-            <a class="btn btn-warning" id="diajukan" >Diajukan</a>
-        </div>
+<div class="flex gap-5 items-center mb-5">
+    <a class="btn btn-success" id="diterima" >Diterima</a>
+    <a class="btn btn-error" id="ditolak" >Ditolak</a>
+    <a class="btn btn-warning" id="diajukan" >Diajukan</a>
+    <a class="btn bg-gray-500" id="semua" >Semua</a>
+</div>
+<div id="content" >
+    <div class="w-full flex gap-5 flex-col">
         <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -187,4 +189,5 @@
             </table>
         </div>
     </div>
+</div>
 @endsection
