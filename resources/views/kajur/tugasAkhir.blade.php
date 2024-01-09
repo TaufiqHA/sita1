@@ -2,10 +2,15 @@
 
 @section('container')
 <div class="flex gap-5 items-center mb-5">
-    <a class="btn btn-success" id="diterima" >Diterima</a>
-    <a class="btn btn-error" id="ditolak" >Ditolak</a>
-    <a class="btn btn-warning" id="diajukan" >Diajukan</a>
-    <a class="btn bg-gray-500" id="semua" >Semua</a>
+    <div class="dropdown">
+        <div tabindex="0" role="button" class="btn m-1">Status</div>
+        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a id="diterima" >Diterima</a></li>
+            <li><a id="ditolak" >Ditolak</a></li>
+            <li><a id="diajukan" >Diajukan</a></li>
+            <li><a id="semua" >Semua</a></li>
+        </ul>
+    </div>
 </div>
 <div id="content" >
     <div class="w-full flex gap-5 flex-col">
