@@ -134,7 +134,7 @@
             </div>
             <div class="w-full flex gap-5" >
                 <button class="btn btn-success grow" >Terima</button>
-                <a href="{{ route('tolakJudul', ['judul' => $judul->id]) }}" class="btn btn-error grow">
+                <a class="btn btn-error grow" onclick="my_modal_3.showModal()">
                     Tolak
                 </a>
                 <a href="{{ route('tugasAkhir') }}" class="btn bg-gray-400 text-black grow" >
@@ -146,4 +146,16 @@
             </div>
         </form>
     </div>
+    <dialog id="my_modal_3" class="modal">
+    <div class="modal-box">
+        <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="font-bold text-lg">Alasan Penolakan</h3>
+        <form action="{{ route('tolakJudul', ['judul' => $judul->id]) }}" class="flex flex-col gap-5 my-4">
+            <textarea class="textarea textarea-bordered" placeholder="Type here" name="alasan_penolakan"></textarea>
+            <button type="submit" class="btn btn-error" >Tolak</button>
+        </form>
+    </div>
+    </dialog>
 @endsection

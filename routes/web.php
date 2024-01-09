@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\JudulController;
 use App\Http\Controllers\BimbinganController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ExcelController;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
@@ -78,4 +79,5 @@ Route::middleware(['auth', 'checkrole:5'])->group(function () {
     Route::get('/user/create', [UserController::class, 'create']);
     Route::post('/user', [UserController::class, 'store']);
     Route::get('/mahasiswa/create', [MahasiswaController::class, 'create']);
+    Route::get('/excel', [ExcelController::class, 'index']);
 });

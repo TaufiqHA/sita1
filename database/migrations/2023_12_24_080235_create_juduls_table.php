@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('status');
             $table->date('tanggal_pengajuan')->nullable();
             $table->date('tanggal_ditolak')->nullable();
+            $table->string('alasan_penolakan')->nullable();
             $table->timestamps();
         });
     }

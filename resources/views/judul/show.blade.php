@@ -145,6 +145,12 @@
                                                     </div>
                                                     <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly >{{ $item->judul }}</textarea>
                                                 </label>
+                                                <label class="form-control w-full h-full grow">
+                                                    <div class="label">
+                                                        <span class="label-text text-xs font-semibold">Alasan Penolakan</span>
+                                                    </div>
+                                                    <textarea class="textarea textarea-bordered h-24" placeholder="Bio" readonly >{{ $item->alasan_penolakan }}</textarea>
+                                                </label>
                                             </div>
                                             <div class="w-full h-full flex gap-5" >
                                                 <label class="form-control w-full h-full grow">

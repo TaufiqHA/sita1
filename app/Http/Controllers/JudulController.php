@@ -175,9 +175,20 @@ class JudulController extends Controller
         return view('judul.show', ['title' => 'List Judul', 'avatar' => $avatar, 'mahasiswa' => $mahasiswa]);
     }
 
-    public function tolakJudul(Judul $judul)
+    public function tolakJudul(Judul $judul, Request $request)
     {
-        Judul::where('id', $judul->id)->update(['status' => 'Ditolak', 'tanggal_ditolak' => now()]);
+        $validator = Validator::make($request->all(), [
+            'alasan_penolakan' => 'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return back()->withErrors($validator);
+        }
+
+        $validated = $validator->validate();
+
+        Judul::where('id', $judul->id)->update(['status' => 'Ditolak', 'tanggal_ditolak' => now(), 'alasan_penolakan' => $validated['alasan_penolakan']]);
         return redirect(route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]));
     }
 
@@ -209,13 +220,6 @@ class JudulController extends Controller
         return redirect(route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]));
 
     }
-
-    // public function diterima()
-    // {
-    //     $data = Judul::where('status', 'Diterima')->get();
-
-    //     return response()->json($data);
-    // }
 
     public function diterima()
     {
