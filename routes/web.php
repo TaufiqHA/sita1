@@ -66,6 +66,7 @@ Route::middleware(['auth', 'checkrole:3'])->group(function () {
     Route::get('/ditolak', [JudulController::class, 'ditolak'])->name('ditolak');
     Route::get('/diajukan', [JudulController::class, 'diajukan'])->name('diajukan');
     Route::get('/semua', [JudulController::class, 'semua'])->name('semua');
+    Route::get('/distribusiDosen', [KajurController::class, 'distribusiDosen'])->name('distribusiDosen');
 });
 
 Route::middleware(['auth', 'checkrole:4'])->group(function () {

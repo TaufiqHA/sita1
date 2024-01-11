@@ -98,4 +98,9 @@ class KajurController extends Controller
 
         return view('kajur.tugasAkhir', ['title' => 'Tugas Akhir', 'avatar' => $avatar, 'judul' => $judul]);
     }
+
+    public function distribusiDosen()
+    {
+        return view('kajur.distribusiDosen', ['title' => 'Distribusi Dosen', 'avatar' => auth()->user()->avatar]);
+    }
 }

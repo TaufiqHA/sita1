@@ -28,6 +28,9 @@
                 <a href="{{ route('tugasAkhir') }}" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Tugas Akhir" || $title === 'List Judul' || $title === "Detail Judul")
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif">Tugas Akhir</a>
+                <a href="{{ route('distribusiDosen') }}" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center text-sm @if ($title === "Distribusi Dosen")
+                p-5 rounded-lg bg-gray-300 text-black w-full text-center
+                @endif">Distribusi Dosen</a>
                 <a href="/logout" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Logout</a>
             </div>
         </div>
