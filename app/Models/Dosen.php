@@ -23,16 +23,21 @@ class Dosen extends Model
 
     public function dospem1()
     {
-        return $this->hasMany(Skripsi::class, 'dospem1');
+        return $this->hasMany(Skripsi::class, 'dospem1_id');
     }
 
     public function dospem2()
     {
-        return $this->hasMany(Skripsi::class, 'dospem2');
+        return $this->hasMany(Skripsi::class, 'dospem2_id');
     }
 
     public function room()
     {
         return $this->hasMany(Room::class);
+    }
+
+    public function dosenPembimbing()
+    {
+        return $this->hasMany(DosenPembimbing::class);
     }
 }

@@ -6,6 +6,8 @@ use App\Models\Kajur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Judul;
+use App\Models\Dosen;
+use App\Models\DosenPembimbing;
 
 class KajurController extends Controller
 {
@@ -101,6 +103,7 @@ class KajurController extends Controller
 
     public function distribusiDosen()
     {
-        return view('kajur.distribusiDosen', ['title' => 'Distribusi Dosen', 'avatar' => auth()->user()->avatar]);
+        $dosen = Dosen::all();
+        return view('kajur.distribusiDosen', ['title' => 'Distribusi Dosen', 'avatar' => auth()->user()->avatar, 'dosen' => $dosen]);
     }
 }

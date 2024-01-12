@@ -25,4 +25,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    public function dosen()
+    {
+        return $this->belongsToMany(Dosen::class, DosenPembimbing::class);
+    }
 }

@@ -9,6 +9,7 @@ use App\Models\Mahasiswa;
 use App\Models\Dosen;
 use App\Models\Skripsi;
 use App\Models\Room;
+use App\Models\DosenPembimbing;
 
 class JudulController extends Controller
 {
@@ -216,6 +217,9 @@ class JudulController extends Controller
 
         Room::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem1_id]);
         Room::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem2_id]);
+
+        DosenPembimbing::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem1_id, 'role' => 'dospem1']);
+        DosenPembimbing::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem2_id, 'role' => 'dospem2']);
 
         return redirect(route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]));
 
