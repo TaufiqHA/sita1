@@ -36,8 +36,13 @@ class Dosen extends Model
         return $this->hasMany(Room::class);
     }
 
-    public function dosenPembimbing()
+    public function mahasiswa()
     {
-        return $this->hasMany(DosenPembimbing::class);
+        return $this->belongsToMany(Mahasiswa::class, 'dosen_pembimbings');
+    }
+
+    public function mahasiswa2()
+    {
+        return $this->belongsToMany(Mahasiswa::class, 'dosen_pembimbing2');
     }
 }

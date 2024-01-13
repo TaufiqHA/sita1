@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Judul;
 use App\Models\Dosen;
 use App\Models\DosenPembimbing;
+use App\Models\Mahasiswa;
 
 class KajurController extends Controller
 {

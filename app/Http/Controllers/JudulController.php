@@ -218,8 +218,15 @@ class JudulController extends Controller
         Room::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem1_id]);
         Room::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem2_id]);
 
-        DosenPembimbing::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem1_id, 'role' => 'dospem1']);
-        DosenPembimbing::create(['mahasiswa_id' => $judul->mahasiswa->id, 'dosen_id' => $request->dospem2_id, 'role' => 'dospem2']);
+        $dosen1 = Dosen::find($request->dospem1_id);
+        $mahasiswa = $judul->mahasiswa->id;
+        $value = [$mahasiswa];
+        $dosen1->mahasiswa()->attach($value);
+
+        $dosen2 = Dosen::find($request->dospem2_id);
+        $mahasiswa = $judul->mahasiswa->id;
+        $value = [$mahasiswa];
+        $dosen2->mahasiswa2()->attach($value);
 
         return redirect(route('showJudulMahasiswa', ['mahasiswa' => $judul->mahasiswa->id]));
 

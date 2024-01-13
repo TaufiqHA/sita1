@@ -28,6 +28,6 @@ class Mahasiswa extends Model
 
     public function dosen()
     {
-        return $this->belongsToMany(Dosen::class, DosenPembimbing::class);
+        return $this->belongsToMany(Dosen::class, 'dosen_pembimbings');
     }
 }
