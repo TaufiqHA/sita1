@@ -17,10 +17,12 @@
                 <a href="/mahasiswa" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Dashboard")
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif">Dashboard</a>
-                <a href="/mahasiswa/create" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Mahasiswa</a>
-                <a href="" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Dosen</a>
-                <a href="/user/create" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >User</a>
-                <a href="" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Seminar</a>
+                <a href="{{ route('user.create') }}" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Tambah User")
+                p-5 rounded-lg bg-gray-300 text-black w-full text-center
+                @endif" >User</a>
+                <a href="{{ route('admin.judul') }}" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Tugas Akhir")
+                p-5 rounded-lg bg-gray-300 text-black w-full text-center
+                @endif" >Tugas Akhir</a>
                 <a href="/logout" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Logout</a>
             </div>
         </div>
@@ -63,5 +65,6 @@
             </div>
         </div>
     </div>
+    @yield('scripts')
 </body>
 </html>

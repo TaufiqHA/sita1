@@ -19,6 +19,13 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/', [AuthController::class, 'doLogin']);
 });
 
+Route::middleware(['auth', 'checkrole:3,5'])->group(function () {
+    Route::get('/diterima', [JudulController::class, 'diterima'])->name('diterima');
+    Route::get('/ditolak', [JudulController::class, 'ditolak'])->name('ditolak');
+    Route::get('/diajukan', [JudulController::class, 'diajukan'])->name('diajukan');
+    Route::get('/semua', [JudulController::class, 'semua'])->name('semua');
+});
+
 Route::middleware(['auth', 'checkrole:1,2,3,4,5'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/redirect', [RedirectController::class, 'check']);
@@ -62,10 +69,6 @@ Route::middleware(['auth', 'checkrole:3'])->group(function () {
     Route::get('/tugasAkhir', [KajurController::class, 'tugasAkhir'])->name('tugasAkhir');
     Route::get('/tolakJudul/{judul}', [JudulController::class, 'tolakJudul'])->name('tolakJudul');
     Route::post('/terimaJudul/{judul}', [JudulController::class, 'terimaJudul'])->name('terimaJudul');
-    Route::get('/diterima', [JudulController::class, 'diterima'])->name('diterima');
-    Route::get('/ditolak', [JudulController::class, 'ditolak'])->name('ditolak');
-    Route::get('/diajukan', [JudulController::class, 'diajukan'])->name('diajukan');
-    Route::get('/semua', [JudulController::class, 'semua'])->name('semua');
     Route::get('/distribusiDosen', [KajurController::class, 'distribusiDosen'])->name('distribusiDosen');
 });
 
@@ -77,8 +80,9 @@ Route::middleware(['auth', 'checkrole:4'])->group(function () {
 
 Route::middleware(['auth', 'checkrole:5'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index']);
-    Route::get('/user/create', [UserController::class, 'create']);
+    Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/user', [UserController::class, 'store']);
     Route::get('/mahasiswa/create', [MahasiswaController::class, 'create']);
     Route::get('/excel', [ExcelController::class, 'index']);
+    Route::get('/admin/judul', [AdminController::class, 'judul'])->name('admin.judul');
 });
