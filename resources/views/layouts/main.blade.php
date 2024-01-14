@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="w-full h-screen flex overflow-hidden ">
-        <div class="w-[15%] h-screen  @if (auth()->user()->tema === 'light')
+        <div class="w-[15%] h-screen @if (auth()->user()->tema === 'light')
                 bg-gray-300
                 @else
                 bg-gray-500
@@ -37,8 +37,10 @@
                 <a href="{{ route('bimbingan') }}" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Bimbingan")
                 p-5 rounded-lg bg-gray-300 text-black w-full text-center
                 @endif">Bimbingan</a>
-                <a href="" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Seminar</a>
-                <a href="/logout" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center" >Logout</a>
+                <a href="{{ route('mahasiswa.seminar') }}" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center @if ($title === "Pendaftaran")
+                p-5 rounded-lg bg-gray-300 text-black w-full text-center
+                @endif" >Seminar</a>
+                <a href="/logout" class="p-5 hover:rounded-lg hover:bg-gray-300 hover:text-black hover:w-full hover:text-center " >Logout</a>
             </div>
         </div>
         <div class="flex-2 w-[85%] h-full p-8 flex-col">
@@ -93,31 +95,7 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const themeController = document.querySelector('.theme-controller');
-
-        themeController.addEventListener('change', function () {
-            const themeValue = themeController.checked ? 'light' : 'dark';
-            // Kirim ke server menggunakan AJAX
-            fetch('/update-theme', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Anda mungkin perlu mengatur CSRF token
-                },
-                body: JSON.stringify({ tema: themeValue })
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Tema berhasil diubah.');
-                } else {
-                    console.error('Gagal mengubah tema.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    });
-    </script>
+    @yield('modal')
+    @yield('scripts')
 </body>
 </html>

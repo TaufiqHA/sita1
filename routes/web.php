@@ -13,6 +13,7 @@ use App\Http\Controllers\JudulController;
 use App\Http\Controllers\BimbinganController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\SeminarController;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
@@ -44,6 +45,7 @@ Route::middleware(['auth', 'checkrole:1'])->group(function () {
     Route::get('/bimbingan/mahasiswa', [BimbinganController::class, 'index'])->name('bimbingan');
     Route::get('/room/mahasiswa/{room}', [RoomController::class, 'index'])->name('room');
     Route::post('/room/mahasiswa/{room}', [RoomController::class, 'uploadDraft'])->name('uploadDraft');
+    Route::get('/seminar/mahasiswa', [SeminarController::class, 'index'])->name('mahasiswa.seminar');
 });
 
 Route::middleware(['auth', 'checkrole:2'])->group(function () {

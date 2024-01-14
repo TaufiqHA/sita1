@@ -81,31 +81,6 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const themeController = document.querySelector('.theme-controller');
-
-        themeController.addEventListener('change', function () {
-            const themeValue = themeController.checked ? 'light' : 'dark';
-            // Kirim ke server menggunakan AJAX
-            fetch('/update-theme', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Anda mungkin perlu mengatur CSRF token
-                },
-                body: JSON.stringify({ tema: themeValue })
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Tema berhasil diubah.');
-                } else {
-                    console.error('Gagal mengubah tema.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    });
-    </script>
+    @yield('scripts')
 </body>
 </html>
